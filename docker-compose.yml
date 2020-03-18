@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  db:
+    image: neo4j:latest
+    volumes:
+        - $HOME/neo4j/data:/data \
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    env_file:
+        - .env
+      
+  server:
+    build:
+        dockerfile: ./Dockerfile
+        context: .
+    command: python manage.py runserver
+    volumes:
+        - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
