@@ -12,6 +12,7 @@ services:
       - .env
 
   server:
+    image: mohamedazab/family-tree-server:latest
     build:
       dockerfile: ./Dockerfile
       context: .

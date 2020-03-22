@@ -30,6 +30,6 @@ def createChildOfRelation(tx, attributesDict):
 # make all children grand children. make new node child for these children add middle node
 def addOnlyChild(tx, attributesDict):
     tx.run(
-        "MATCH p=(y:Person)-[r:CHILD_OF]->(x:Person{id:$parentId})  MATCH q=(n:Person{id:$childID}) delete r CREATE (y)-[m:CHILD_OF]->(n)", attributesDict)
+        "MATCH p=(y:Person)-[r:CHILD_OF]->(x:Person{id:$parentId})  MATCH q=(n:Person{id:$childID}) delete r CREATE (y)-[m:CHILD_OF {roles:[y.gender]}]->(n)", attributesDict)
 
 
