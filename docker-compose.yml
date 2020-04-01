@@ -1,5 +1,5 @@
+#  to run locally
 version: "3"
-
 services:
   db:
     image: neo4j:latest
