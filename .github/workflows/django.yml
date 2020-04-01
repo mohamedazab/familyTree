@@ -17,27 +17,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1 # action to setup python development
         with:
           python-version: ${{ matrix.python-version }} # version selected from the specified matrix
+
       - name: Install Dependencies
         run: | # multi line run
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-  test:
-    # sequential job to the following II
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+
       - name: Run Tests
         run: python manage.py test
-        env: 
+        env:
           SECRET_KEY: lc0j7swnuk1kv!88s-)s)l@rb!(k89_(ro$t5$f77poychz-(-
 
-  # publish: 
+  # publish:
   #   needs: [build,test]
   #   runs-on:ubuntu-latest
   #   steps:
-  #     docker login 
+  #     docker login
   #     docker push
