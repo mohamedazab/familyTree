@@ -31,7 +31,7 @@ jobs:
       - name: Run Tests
         run: python manage.py test
         env:
-          SECRET_KEY: lc0j7swnuk1kv!88s-)s)l@rb!(k89_(ro$t5$f77poychz-(-
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
   # publish:
   #   needs: [build,test]
