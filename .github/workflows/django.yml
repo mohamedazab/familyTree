@@ -33,15 +33,28 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1 # action to setup python development
+        with:
+          python-version: 3.8 # version selected from the specified matrix
+      
       - name: build Docker image
-        run:  docker build -t $IMAGE_NAME:latest .
+        run: docker build -t $IMAGE_NAME:latest .
         env:
           IMAGE_NAME: mohamedazab/family-tree-server
+
       - name: login to  Docker Hub
-        run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_PASS
+        run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+
       - name: publish to Docker Hub
         run: docker push $IMAGE_NAME:latest
         env:
