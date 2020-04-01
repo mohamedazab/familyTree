@@ -38,10 +38,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build Docker image
-        run: docker build -t $IMAGE_NAME:latest .
+        run: |
+          python manage.py test
+          docker build -t $IMAGE_NAME:latest .
         env:
           IMAGE_NAME: mohamedazab/family-tree-server
-
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          
       - name: login to  Docker Hub
         run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_PASS
         env:
