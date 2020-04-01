@@ -11,26 +11,10 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container: mohamedazab/family-tree-server:latest
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8]
-    services:
-       db:
-        image: neo4j:latest
-        volumes:
-          - $HOME/neo4j/data:/data \
-        ports:
-          - "7474:7474"
-          - "7687:7687"
-        env:
-          NEO4J_AUTH: neo4j/abc
-          SECURE_FILE_PERMISSIONS: yes
-          dbms_connector_bolt_listen__address: 0.0.0.0:7687
-
-        
-
+        python-version: [3.7, 3.8]     
     steps:
       # checkout my repo so that workflow can access it
       # repository param default is github.repository
@@ -51,6 +35,23 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           
+  test:
+    runs-on: ubuntu-latest
+    env:
+        NEO4J_AUTH: neo4j/abc
+        SECURE_FILE_PERMISSIONS: yes
+        dbms_connector_bolt_listen__address: 0.0.0.0:7687
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build docker compose stack
+      - run: docker-compose up -d
+
+      - name: check containers
+      - run: docker ps -a
+        
+
+
 
   publish:
     needs: build
