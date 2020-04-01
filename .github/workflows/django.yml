@@ -33,24 +33,15 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: build Docker image
-        run: |
-          python manage.py test
-          docker build -t $IMAGE_NAME:latest .
+        run:  docker build -t $IMAGE_NAME:latest .
         env:
           IMAGE_NAME: mohamedazab/family-tree-server
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          
       - name: login to  Docker Hub
         run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_PASS
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
-
       - name: publish to Docker Hub
         run: docker push $IMAGE_NAME:latest
         env:
