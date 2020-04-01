@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1 # action to setup python development
         with:
@@ -39,13 +39,14 @@ jobs:
     steps:
       - name: build Docker image
         run: docker build -t $IMAGE_NAME:latest .
+        env:
+          IMAGE_NAME: mohamedazab/family-tree-server
 
       - name: login to  Docker Hub
         run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_PASS
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
-
 
       - name: publish to Docker Hub
         run: docker push $IMAGE_NAME:latest
