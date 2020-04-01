@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v2
     
       - name: build docker compose stack
-        run: docker-compose --verbose up
+        run: docker-compose --verbose up -d
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           NEO4J_AUTH: ${{ secrets.NEO4J_AUTH }}
