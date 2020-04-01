@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, QueryDict
 from neo4j import GraphDatabase
-from .models import GraphConnection, basic_auth
+from .models import GraphConnection
 import json
 from django.views.decorators.csrf import csrf_exempt
 import uuid

@@ -1,7 +1,7 @@
 # from django.db import models
 
 # Create your models here.
-from neo4j import GraphDatabase, basic_auth, CypherError
+from neo4j import GraphDatabase, CypherError
 from .Tree import Tree
 import environ
 from .serializer import serializePerson, serilatizeRelationship
