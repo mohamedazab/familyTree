@@ -72,7 +72,7 @@ jobs:
           pip install -r requirements.txt
       - name: run test
         run:
-             pip freeze
+             docker ps -a
       
       - name: Run Tests
         run: python manage.py test
