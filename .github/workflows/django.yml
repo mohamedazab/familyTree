@@ -47,11 +47,12 @@ jobs:
           NEO4J_AUTH: ${{ secrets.NEO4J_AUTH }}
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
-      - name: Run Tests
-        run: docker exec familytree_server_1 python manage.py test
 
       - name: check containers
         run: docker ps -a
+      
+      - name: Run Tests
+        run: docker exec familytree_server_1 python manage.py test
 
   publish:
     needs: [build, test]
