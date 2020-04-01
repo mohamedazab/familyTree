@@ -48,7 +48,7 @@ jobs:
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
       - name: Run Tests
-        run: python manage.py test
+        run: docker exec familytree_server_1 python manage.py test
 
       - name: check containers
         run: docker ps -a
