@@ -65,6 +65,7 @@ jobs:
           DB_URI: ${{ secrets.DB_URI }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
       #   run: docker exec familytree_server_1 python manage.py test
 
   publish:
