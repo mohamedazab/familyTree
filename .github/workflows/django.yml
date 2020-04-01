@@ -29,10 +29,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       # run tests
-      - name: Run Tests
-        run: python manage.py test
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      # - name: Run Tests
+      #   run: python manage.py test
+      #   env:
+      #     SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
   test:
     runs-on: ubuntu-latest
@@ -43,6 +43,7 @@ jobs:
       - name: build docker compose stack
         run: docker-compose up -d
         env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           NEO4J_AUTH: ${{ secrets.NEO4J_AUTH }}
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
