@@ -8,18 +8,17 @@ on:
     branches: [master]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8]     
+        python-version: [3.7, 3.8]
     steps:
       # checkout my repo so that workflow can access it
       # repository param default is github.repository
       - uses: actions/checkout@v2
-      # Setup python 
+      # Setup python
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1 # action to setup python development
         with:
@@ -34,30 +33,27 @@ jobs:
         run: python manage.py test
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          
+
   test:
     runs-on: ubuntu-latest
-    env:
-        NEO4J_AUTH: neo4j/abc
-        SECURE_FILE_PERMISSIONS: yes
-        dbms_connector_bolt_listen__address: 0.0.0.0:7687
+
     steps:
       - uses: actions/checkout@v2
 
       - name: build docker compose stack
-      - run: docker-compose up -d
+        run: docker-compose up -d
+        env:
+          NEO4J_AUTH: neo4j/abc
+          SECURE_FILE_PERMISSIONS: yes
+          dbms_connector_bolt_listen__address: 0.0.0.0:7687
 
       - name: check containers
       - run: docker ps -a
-        
-
-
 
   publish:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
-
       # checkout my repo so that workflow can access it
       # repository param default is github.repository
       - uses: actions/checkout@v2
