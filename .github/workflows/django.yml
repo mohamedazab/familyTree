@@ -39,11 +39,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+    
       - name: build docker compose stack
         run: docker-compose up -d
         env:
-          NEO4J_AUTH: neo4j/abc
+          NEO4J_AUTH: ${{ secrets.NEO4J_AUTH }}
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
 

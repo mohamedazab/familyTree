@@ -21,7 +21,7 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    env_file:
-      - ./familyTreeWeb/.env
+    # env_file:
+    #   - ./familyTreeWeb/.env
     depends_on:
       - db
