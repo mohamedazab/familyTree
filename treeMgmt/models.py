@@ -18,6 +18,7 @@ class GraphConnection(object):
         USER = env('DB_USER')
         PASSWORD = env('DB_PASSWORD')
         DB_URI = env('DB_URI')
+        print(DB_URI)
         self._driver = GraphDatabase.driver(
             uri=DB_URI, auth=(USER, PASSWORD), encrypted=False)
 
