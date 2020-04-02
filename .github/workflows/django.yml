@@ -7,9 +7,6 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  IMAGE_NAME: mohamedazab/family-tree-server
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,9 +32,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      DB_AUTH: neo4j/abcd
-
     services:
       db:
         image: neo4j:latest
@@ -45,7 +39,7 @@ jobs:
           - 7474:7474
           - 7687:7687
         env:
-          NEO4J_AUTH: $DB_AUTH
+          NEO4J_AUTH: neo4j/abcd
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
 
@@ -77,6 +71,8 @@ jobs:
   publish:
     needs: [build, test]
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: mohamedazab/family-tree-server
     steps:
       # checkout my repo so that workflow can access it
       # repository param default is github.repository
