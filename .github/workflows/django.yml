@@ -45,7 +45,7 @@ jobs:
           - 7474:7474
           - 7687:7687
         env:
-          NEO4J_AUTH: ${{ secrets.DB_PASSWORD }}
+          NEO4J_AUTH: $DB_AUTH
           SECURE_FILE_PERMISSIONS: yes
           dbms_connector_bolt_listen__address: 0.0.0.0:7687
 
