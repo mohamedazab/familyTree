@@ -35,10 +35,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # env:
-    #   NEO4J_AUTH: neo4j/abcd
-    #   SECURE_FILE_PERMISSIONS: yes
-    #   dbms_connector_bolt_listen__address: 0.0.0.0:7687
+    env:
+      DB_AUTH: neo4j/abcd
 
     services:
       db:
@@ -46,6 +44,11 @@ jobs:
         ports:
           - 7474:7474
           - 7687:7687
+        env:
+          NEO4J_AUTH: $DB_AUTH
+          SECURE_FILE_PERMISSIONS: yes
+          dbms_connector_bolt_listen__address: 0.0.0.0:7687
+
 
     steps:
       - uses: actions/checkout@v2
